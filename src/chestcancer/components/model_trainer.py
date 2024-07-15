@@ -45,8 +45,11 @@ class Training:
                 shuffle = True,
                 target_size = self.config.params_image_size[:-1],
                 batch_size = self.config.params_batch_size,
-                interpolation = 'bilinear'
+                interpolation = 'bilinear',
+                class_mode='binary'
             )
+
+            logger.info(f'------------train_generator found {train_generator.samples} samples---------------')
 
             valid_generator = test_datagen.flow_from_directory(
                 directory = self.config.training_data_path,
@@ -54,8 +57,11 @@ class Training:
                 shuffle = False,
                 target_size = self.config.params_image_size[:-1],
                 batch_size = self.config.params_batch_size,
-                interpolation = 'bilinear'
+                interpolation = 'bilinear',
+                class_mode='binary'
             )
+
+            logger.info(f'------------test_generator found {valid_generator.samples} samples---------------')
 
             logger.info(f'-------------completed creating train and test generators---------------------')
 
@@ -68,7 +74,7 @@ class Training:
             logger.info(f'----------creating Modelcheckpoint and earlystopping---------------')
 
             model_checkpoint_callback = tensorflow.keras.callbacks.ModelCheckpoint(
-                self.config.updated_base_model_path,
+                self.config.trained_model_path,
                 monitor = 'val_accuracy',
                 save_best_only = True,
                 save_weights_only = False,
@@ -95,8 +101,6 @@ class Training:
                 validation_steps = math.ceil(valid_generator.samples // valid_generator.batch_size),
                 callbacks = [model_checkpoint_callback, early_stopping]
             )
-
-            model.save(self.config.trained_model_path)
 
 
             logger.info(f'-----------Model Training completed and model saved successfully------------------------')

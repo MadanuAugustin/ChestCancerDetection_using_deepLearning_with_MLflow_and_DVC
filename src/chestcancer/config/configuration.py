@@ -39,7 +39,7 @@ class ConfigurationManager:
 
         config = self.config.prepare_base_model
 
-        create_directories([self.config.artifacts_root])
+        create_directories([config.root_dir])
 
         prepare_base_model_config = PrepareBaseModelConfig(
             root_dir = Path(config.root_dir),
@@ -63,7 +63,7 @@ class ConfigurationManager:
         prepare_base_model = self.config.prepare_base_model
         params = self.params
 
-        create_directories([self.config.artifacts_root])
+        create_directories([config.root_dir])
 
         training_config = TrainingConfig(
             root_dir = Path(config.root_dir),

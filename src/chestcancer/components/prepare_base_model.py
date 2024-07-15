@@ -39,7 +39,7 @@ class PrepareBaseModel:
         model = Model(inputs = base_model.input, outputs = predictions)
 
         model.compile(optimizer = tensorflow.keras.optimizers.SGD(learning_rate = self.config.params_learning_rate),
-                       loss = tensorflow.keras.losses.CategoricalCrossentropy(),
+                       loss = 'binary_crossentropy',
                          metrics = ['accuracy'])
         
         model.summary()
