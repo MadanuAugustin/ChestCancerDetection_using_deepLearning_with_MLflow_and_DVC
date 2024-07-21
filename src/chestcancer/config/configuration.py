@@ -2,7 +2,7 @@
 
 from chestcancer.constants import *
 from chestcancer.utils.common import read_yaml , create_directories
-from chestcancer.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig)
+from chestcancer.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig, EvaluationConfig)
 from pathlib import Path
 
 
@@ -77,4 +77,24 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+
+        config = self.config.evaluation
+        all_params = self.params
+
+        create_directories([config.root_dir])
+
+        evaluation_config = EvaluationConfig(
+            root_dir = Path(config.root_dir),
+            trained_model_path= Path(config.trained_model_path),
+            training_data_path = Path(config.training_data_path),
+            params_image_size = all_params.IMAGE_SIZE,
+            params_batch_size = all_params.BATCH_SIZE,
+            mlflow_uri = "https://dagshub.com/augustin7766/ChestCancerDetection_using_deepLearning_with_MLflow_and_DVC.mlflow",
+
+        )
+
+        return evaluation_config
 

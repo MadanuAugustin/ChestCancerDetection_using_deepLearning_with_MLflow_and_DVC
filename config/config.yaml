@@ -22,7 +22,13 @@ training :
   root_dir : artifacts/training
   trained_model_path : artifacts/training/trained_model.keras
   training_data_path : artifacts/data_ingestion/Chest-CT-Scan-data
-  
+
+
+
+evaluation : 
+  root_dir : artifacts/evaluation
+  trained_model_path : artifacts/training/trained_model.keras
+  training_data_path : artifacts/data_ingestion/Chest-CT-Scan-data
 
 
 
